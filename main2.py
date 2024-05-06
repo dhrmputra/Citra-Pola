@@ -1,8 +1,11 @@
 import cv2
-
+from cv2 import waitKey
+import numpy as np
 img = cv2.imread("rawrrr.jpg")
+H, W = img.shape[:2]
 
-#konversi BGR ke ruang warna HSV
-hsv = cv2.cvtColor(img, cv2. COLOR_BGR2HSV);
-cv2.imshow("Citra HSV", hsv)
+M = np.float32([[1,0,100],[0,1,50]])
+hasil = cv2.warpAffine(img,M,(W,H))
+cv2.imshow('Gambar Asli', img)
+cv2.imshow('Hasil Translasi', hasil)
 cv2.waitKey(0)

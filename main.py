@@ -2,25 +2,21 @@ import cv2
 from cv2 import waitKey
 
 img = cv2.imread("rawrrr.jpg")
+cv2.imshow('Gambar Asli', img)
+H, W = img.shape[:2]
 
-print(type(img))
-print(img.size)
-print(img.dtype)
-print(img.shape) 
-
-#ekstrasi layer
-b, g, r = cv2.split(img)
-b = img[...,0]
-g = img[...,1]
-r = img[...,2]
-
-hsv = cv2.cvtColor(img, cv2. COLOR_BGR2HSV);
-
-# Menampilkan Gambar
-cv2.imshow('patung',img)
-cv2.imshow('Biru' ,b)
-cv2.imshow('Hijau' ,g)
-cv2.imshow('Merah' ,r)
-cv2.imshow("Citra HSV", hsv)
+degree = 90
+rotationMatrix = cv2.getRotationMatrix2D((W / 2, H / 2), degree, 1)
+cv2.flip()
+#untuk memposisikan gambar pada titik 0,0
+# cos = np.abs(rotationMatrix[0, 0])
+# sin = np.abs(rotationMatrix[0, 1])
+# print(cos, sin, rotationMatrix[0, 0])
+# nW = int((H * sin) + (W * cos))
+# nH = int((H * cos) + (W * sin))
+# rotationMatrix[0, 2] += (nW / 2) - W / 2
+# rotationMatrix[1, 2] += (nH / 2) - H / 2
+rot_image = cv2.warpAffine(img, rotationMatrix, (H,W))
+cv2.imshow('Gambar Hasil', rot_image)
+cv2.imshow('Gambar Hasil', rot_image)
 waitKey(0)
-# hsv = cv2.cvtColor(img, cv2. COLOR_BGR2HSV);
